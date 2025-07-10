@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Toaster, toast } from 'react-hot-toast';
 import ApiKeyManager from './components/ApiKeyManager';
 import TranscriptFetcher from './components/TranscriptFetcher';
 import MarkdownEditor from './components/MarkdownEditor';
+import CopyButton from './components/CopyButton';
+import SupadataPromotion from './components/SupadataPromotion';
+import Footer from './components/Footer';
 import * as FiIcons from 'react-icons/fi';
 import SafeIcon from './common/SafeIcon';
 import './App.css';
@@ -28,7 +32,7 @@ function App() {
 
   const handleTranscriptFetch = async (url) => {
     if (!apiKey) {
-      alert('Please set your API key first');
+      toast.error('Please set your API key first');
       return;
     }
     setIsLoading(true);
@@ -47,9 +51,17 @@ function App() {
         .map(item => item.text)
         .join('\n\n');
       setTranscript(markdownContent);
+      
+      // Copy to clipboard automatically
+      try {
+        await navigator.clipboard.writeText(markdownContent);
+        toast.success('Transcript copied to clipboard!');
+      } catch (err) {
+        console.error('Failed to copy to clipboard:', err);
+      }
     } catch (error) {
       console.error('Error fetching transcript:', error);
-      alert('Failed to fetch transcript. Please check your API key and URL.');
+      toast.error('Failed to fetch transcript. Please check your API key and URL.');
     } finally {
       setIsLoading(false);
     }
@@ -57,6 +69,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <Toaster position="top-right" />
       <div className="container mx-auto px-4 py-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -81,6 +94,9 @@ function App() {
             <SafeIcon icon={FiExternalLink} className="text-sm" />
           </a>
         </motion.div>
+
+        {/* Supadata Promotion Banner */}
+        <SupadataPromotion />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* API Key Section */}
@@ -124,13 +140,19 @@ function App() {
           className="mt-6"
         >
           <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
-            <div className="flex items-center gap-2 mb-4">
-              <SafeIcon icon={FiFileText} className="text-xl text-green-600" />
-              <h2 className="text-xl font-semibold text-gray-800">Markdown Editor</h2>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <SafeIcon icon={FiFileText} className="text-xl text-green-600" />
+                <h2 className="text-xl font-semibold text-gray-800">Markdown Editor</h2>
+              </div>
+              <CopyButton content={transcript} />
             </div>
             <MarkdownEditor content={transcript} onChange={setTranscript} />
           </div>
         </motion.div>
+        
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );
