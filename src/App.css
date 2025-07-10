@@ -1,0 +1,58 @@
+.app-container {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message {
+  font-size: 1.1rem;
+  color: #374151;
+}
+
+/* Markdown Editor Styles */
+.markdown-editor {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.markdown-editor .w-md-editor {
+  background-color: transparent;
+}
+
+.markdown-editor .w-md-editor-text-container {
+  border-radius: 8px;
+}
+
+.markdown-editor .w-md-editor-text,
+.markdown-editor .w-md-editor-text-input {
+  border-radius: 8px;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.markdown-editor .w-md-editor-text-input {
+  padding: 16px !important;
+}
+
+.markdown-editor .w-md-editor-bar {
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.markdown-editor .w-md-editor-bar svg {
+  width: 16px;
+  height: 16px;
+}
+
+.markdown-editor .w-md-editor-bar button {
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
+.markdown-editor .w-md-editor-bar button:hover {
+  color: #374151;
+  background-color: #e5e7eb;
+}
