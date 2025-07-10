@@ -34,7 +34,7 @@ const SupadataPromotion = () => {
               <SafeIcon icon={FiExternalLink} className="text-sm" />
             </a>
             <a 
-              href="https://docs.supadata.ai/" 
+              href="https://supadata.ai/documentation/getting-started?ref=48642" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200"
